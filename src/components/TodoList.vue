@@ -1,9 +1,13 @@
 <template>
     <div>
         <h2>Todos</h2>
-        <input id='todoinput' v-model="newTodo">
-        <h3>{{newTodo}}</h3>
-        <TodoItem :id="idNum" content="sdaf" state="activate"></TodoItem>
+        <input id='todoinput' v-model="newTodo" @keyup.enter="addItem">
+        <h3>{{ newTodo }}</h3>
+        <ul>
+            <li v-for="item in listArray" :key="item.id">
+                <TodoItem v-bind="item" @removeOne="removeItem(item.id)"></TodoItem>
+            </li>
+        </ul>
 
 
 
@@ -12,18 +16,35 @@
 </template>
 
 <script>
-    import TodoItem from "./TodoItem.vue";
-    export default {
+import TodoItem from "./TodoItem.vue";
+export default {
     data() {
         return {
             newTodo: "",
-            idNum: 123123
+            listArray: [],
         };
     },
-    components: { TodoItem }
+    components: { TodoItem },
+    methods: {
+        getID() {
+            return new Date().getTime()
+        },
+        addItem() {
+            this.listArray.push({
+                id: this.getID(),
+                content: this.newTodo,
+                state: 'activate'
+            })
+            this.newTodo = ''
+        },
+        removeItem(id) {
+            this.listArray = this.listArray.filter(item => item.id !== id)
+
+
+        }
+    }
 }
 </script>
 
 <style scoped>
-
 </style>

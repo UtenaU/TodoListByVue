@@ -3,8 +3,8 @@
         <span id="todocontent"  :class="{ completed: this.todoState === 'completed' }">
             {{ this.content }}
         </span>
-        <button id="completeBtn" @click="completeOne">（￣︶￣）↗　</button>
-        <button id="removeBtn" @click="removeOne"> (ノへ￣、)</button>
+        <button id="completeBtn" @click="completeOne"> √ </button>
+        <button id="removeBtn" @click="removeOne"> X </button>
     </div>
 </template>
 
